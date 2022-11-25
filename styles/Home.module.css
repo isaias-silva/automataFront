@@ -1,0 +1,249 @@
+.aside {
+    position: fixed;
+    top: 0;
+    width: 30%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #000;
+    padding: 5px;
+    background-color: rgba(4, 49, 88, 0.386);
+    overflow-y: scroll;
+
+}
+
+.image {
+    width: 60%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.446);
+  position: relative;
+  min-height: 200px;
+}
+
+.image img {
+    width: 100%;
+    top:0;
+    position: absolute;
+}
+
+.section {
+    text-align: center;
+    position: absolute;
+    right: 0;
+    background-color: rgba(6, 33, 64, 0.552);
+    width: 70%;
+    height: auto;
+    min-height: 100vh;
+}
+
+.message {
+    display: flex;
+    background-color: #fff;
+    color: #000;
+    width: 100%;
+    margin: auto;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    transition: 0.2s linear;
+    position: relative;
+    align-items: center;
+    word-wrap: break-word;    
+    overflow-wrap: break-word;
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+  
+}
+
+.message:hover {
+    background: aquamarine;
+    cursor: pointer;
+}
+
+.message:active {
+    background-color: blue;
+}
+
+.message h4, .message p {
+    margin: 0;
+    text-align: left;
+    word-wrap: break-word;
+}
+.messagesList{
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.perfil {
+    position: relative;
+    width: 20%;
+    height: 100%;
+    top: 0;
+ 
+}
+.perfil img {
+    width: 100%;
+    border-radius: 100%;
+}
+img.member{
+    position: absolute;
+    width: 30px;
+    left:0;
+    bottom:0;
+    border:2px solid rgb(0, 102, 255);
+    
+}
+.numberMsgs{
+    position: absolute;
+    color:#fff;
+    background-color: red;
+    font-size: 14px;
+  min-width: 30px;
+  height: 30px;
+    top:0;
+  text-align: center;
+    border-radius: 100%;
+    display: block;
+    padding: 5px;
+}
+
+.msgs {
+    position: fixed;
+    top: 0;
+    text-align: left;
+    width: 70%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.425);
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(6, 0, 34, 0.864);
+    width: 100%;
+}
+
+.titleContainer img {
+    width: 60px;
+    border-radius: 100%;
+}
+
+.titleContainer h1 {
+    width: 80%;
+}
+
+.msgs .chating {
+    background: rgba(0, 0, 0, 0.623);
+    width: 100%;
+    margin: auto;
+    height: 100%;
+    position: relative;
+    overflow-y: scroll;
+
+}
+
+.msgs .txt {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #000;
+    align-items: center;
+}
+
+.txt textarea {
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    resize: none;
+
+}
+
+.sender, .anex {
+    width: 10%;
+    background: rgba(24, 6, 126, 0.459);
+    color: #fff;
+    height: 80%;
+    border: none;
+    border-radius: 10px;
+    transition: 0.5s linear;
+}
+
+.anex img, .sender img {
+    filter: invert(100%);
+
+}
+
+.anex:hover, .sender:hover {
+    background: aqua;
+    cursor: pointer
+}
+
+.msghe, .msgyou {
+    width: 40%;
+    margin: 10px;
+    border-radius: 5px;
+    color: #000;
+    background: #fff;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    min-height: 50px;
+
+}
+
+.msghe p, .msgyou p {
+    margin: 5px;
+}
+
+.msgyou {
+    background: rgba(147, 16, 255, 0.74);
+    color: #fff;
+    left: 55%;
+}
+
+.rotate {
+    animation: rotateAnimation 1s infinite;
+}
+
+.float {
+    animation: floatAnimation 2s infinite;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        rotate: 0deg;
+    }
+
+
+    100% {
+        rotate: 360deg;
+    }
+}
+
+@keyframes floatAnimation {
+
+
+    0% {
+        
+        top:0
+    }
+
+    50% {
+       
+        top:50px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
