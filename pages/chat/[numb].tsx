@@ -4,7 +4,9 @@ import style from '../../styles/Home.module.css'
 import anex from '../../public/icon/anex.png'
 import sender from '../../public/icon/sender.png'
 import Image from 'next/image'
-export default function Number() {
+import { Icontact } from "../../interfaces/Icontact"
+export default function Number(messages:Icontact[]) {
+  
     const rt=useRouter()
     return (
   
@@ -19,7 +21,7 @@ export default function Number() {
     <div className={style.chating}>
       <div className={style.msghe}>
         <p>
-          olá trouxa.
+        
         </p>
       </div>
       <div className={style.msgyou}>

@@ -18,6 +18,7 @@ export default function Aside({ response, qr, messages }: { response: string, qr
                 if (item.msgs) {
                         const format = item.msgs[item.msgs.length > 0 ? item.msgs.length - 1 : 0]
                         return <Message
+                                isGroup={item.isGroup}
                                 chatName={item.name}
                                 contactName={format?.name || format?.number ||'user'}
                                 key={i}
