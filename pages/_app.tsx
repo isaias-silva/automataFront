@@ -65,6 +65,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 
   return <Layout response={response} qr={qr} messages={messages}>
-    <Component {...pageProps} />
+    <Component {...pageProps}
+    messages={messages} />
   </Layout>
 }

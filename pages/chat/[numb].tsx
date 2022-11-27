@@ -5,78 +5,50 @@ import anex from '../../public/icon/anex.png'
 import sender from '../../public/icon/sender.png'
 import Image from 'next/image'
 import { Icontact } from "../../interfaces/Icontact"
-export default function Number(messages:Icontact[]) {
-  
-    const rt=useRouter()
-    return (
-  
-      <div className={style.msgs}>
-        <div className={style.titleContainer}>
-          <img src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258193-stock-illustration-anonymous-business-man-icon.jpg" alt="ing" />
-      <h1>{rt.query.numb}</h1>
+
+export default function Number({ messages }: any) {
+
+  const rt = useRouter()
+  const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || {}
+  const messagesObjects: any = []
+  if (contact.msgs) {
+    contact.msgs.map((item) => {
+      let element = contact.isGroup ? <div className={style.msghe}>
+
+        <p> <strong>{item.name}: </strong>{item.text}</p>
+      </div> : <div className={style.msghe}>
+
+        <p>{item.text}</p>
+      </div>
+
+      messagesObjects.push(element)
+    })
+
+  }
+  return (
+
+    <div className={style.msgs}>
+      <div className={style.titleContainer}>
+        <img src={contact.picture || 'nan'} alt="perfil" />
+        <h1>{contact.name || 'erro'}</h1>
         <button className={style.sender}>
           {'<-'}
         </button>
-        </div>
-    <div className={style.chating}>
-      <div className={style.msghe}>
-        <p>
-        
-        </p>
       </div>
-      <div className={style.msgyou}>
-      <p>
-          olá trouxa.
-        </p>
-      
+      <div className={style.chating}>
+        {messagesObjects}
       </div>
-      <div className={style.msghe}>
-        <p>
-          olá trouxa.
-        </p>
-      </div>
-      <div className={style.msgyou}>
-      <p>
-          olá trouxa.
-        </p>
-      
-      </div>
-      <div className={style.msghe}>
-        <p>
-          olá trouxa.
-        </p>
-      </div>
-      <div className={style.msgyou}>
-      <p>
-          olá trouxa.
-        </p>
-      
-      </div>
-      <div className={style.msghe}>
-        <p>
-          olá trouxa.
-        </p>
-      </div>
-      <div className={style.msgyou}>
-      <p>
-          olá trouxa.
-        </p>
-      
-      </div>
-      
-    </div>
-    <div className={style.txt}>
-    <button className={style.anex}>
-   <Image src={anex} width={30} height={30} alt=""></Image>
- 
-    </button>
-      <textarea name="txt" id="txtarea"></textarea>
-      <button className={style.sender}>
-      <Image src={sender} width={30} height={30} alt=""></Image>
+      <div className={style.txt}>
+        <button className={style.anex}>
+          <Image src={anex} width={30} height={30} alt=""></Image>
+
         </button>
+        <textarea name="txt" id="txtarea"></textarea>
+        <button className={style.sender}>
+          <Image src={sender} width={30} height={30} alt=""></Image>
+        </button>
+      </div>
     </div>
-    </div>
-   
-    )
-  }
-  
+
+  )
+}
