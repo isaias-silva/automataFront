@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
 export function useSocket(url: string, token: string): Socket {
-    const [socket, setSocket]: Socket | any = useState()
+    const [socket, setSocket]: Socket | any = useState(null)
 
     useEffect(() => {
         const socketIo = io(url, {
