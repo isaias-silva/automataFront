@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
       });
 
       io.on('msg', (msgs: Icontact[]) => {
-
+       
         setMessages(msgs)
 
       })
