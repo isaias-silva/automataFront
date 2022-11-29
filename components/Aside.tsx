@@ -25,7 +25,7 @@ export default function Aside({ response, qr, messages }: { response: string, qr
                                 text={format?.text ? format.text : `[${format?.type||'tipo indefinido'}]`}
                                 number={item.id || 'contact'}
                                 img={item.picture || genericImage.src}
-                                memberImg={item.groupMemberPicture || genericImage.src}
+                                memberImg={format?.picture || genericImage.src}
                                 size={item.msgs.length}
                         />
                 }

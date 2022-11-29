@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [qr, setQr] = useState(load.src)
   const [response, setResponse] = useState('starting...')
   const [messages, setMessages]: Icontact[] | any = useState([])
-  const io = useSocket('http://localhost:8080', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzE4NTEwMzZmZTUyZjEzZGJkYTZmZCIsIm5vbWUiOiJaYWNrIiwiY2xhc3NlIjoiYWRtIiwiZW1haWwiOiJpc2FpYXNnYXJyYWVsdXRhQGdtYWlsLmNvbSIsInZlcmlmeU1haWwiOnRydWUsImlhdCI6MTY2OTQ3OTE2MCwiZXhwIjoxNjY5NzM4MzYwfQ.z4YkzC7NUXbI0Gcix8EOZx-K6lt4NRMpISuFe_1zF1I')
+  const io = useSocket('http://localhost:8080', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzE4NTEwMzZmZTUyZjEzZGJkYTZmZCIsIm5vbWUiOiJaYWNrIiwiY2xhc3NlIjoiYWRtIiwiZW1haWwiOiJpc2FpYXNnYXJyYWVsdXRhQGdtYWlsLmNvbSIsInZlcmlmeU1haWwiOnRydWUsImlhdCI6MTY2OTczODgyMiwiZXhwIjoxNjY5OTk4MDIyfQ.7nnngjDlb9FHlArxlNRJrvptNPSIDo7qEuhe-zs5wqI')
 
   useEffect(() => {
 

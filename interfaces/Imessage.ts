@@ -4,4 +4,5 @@ export default interface Imessage{
     name:string
     number?:string
     media?:{mimetype?:string,filename?:string,filesize?:number, data?:string}
+    picture?:string| null
 }
