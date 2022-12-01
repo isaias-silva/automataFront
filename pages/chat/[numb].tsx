@@ -5,12 +5,15 @@ import anex from '../../public/icon/anex.png'
 import sender from '../../public/icon/sender.png'
 import Image from 'next/image'
 import { Icontact } from "../../interfaces/Icontact"
+import { useEffect, useState } from "react"
 
-export default function Number({ messages }: any) {
-
+export default function Number({ messages, io }: any) {
+  const [message, setMessage] = useState('')
   const rt = useRouter()
   const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || {}
   const messagesObjects: any = []
+
+
   if (contact.msgs) {
 
     contact.msgs.map(async (item) => {
@@ -20,43 +23,45 @@ export default function Number({ messages }: any) {
 
       }
 
-      let element = contact.isGroup ? <div className={style.msghe}>
-        {base64Src ?
-          <div className={style.mediaChat}>
-            <span className={style.titleChat}>{item.name}: </span>
+      let element = contact.isGroup ?
+        <div className={item.isMe ? style.msgyou : style.msghe}>
+          {base64Src ?
+            <div className={style.mediaChat}>
+              {
+                item.isMe ? null : <span className={style.titleChat}>{item.name}: </span>
 
-            <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} />
-            <p>
-              {item.text}
-            </p>
-          </div> :
-          <div className={style.textMessage}>
-            <p>
-              <span className={style.titleChat}>{item.name}: </span>
-              {item.text}
-            </p>
+              }
 
-          </div>}
+              <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} />
+              <p>
+                {item.text}
+              </p>
+            </div> :
+            <div className={style.textMessage}>
+              <p>
+                <span className={style.titleChat}>{item.name}: </span>
+                {item.text}
+              </p>
 
-      </div> : <div className={style.msghe}>
+            </div>}
 
-      {base64Src ?
-          <div className={style.mediaChat}>
-        
+        </div> :
+        <div className={item.isMe ? style.msgyou : style.msghe}>
+          {base64Src ?
+            <div className={style.mediaChat}>
+              <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} />
+              <p>
+                {item.text}
+              </p>
+            </div> :
+            <div className={style.textMessage}>
+              <p>
 
-            <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} />
-            <p>
-              {item.text}
-            </p>
-          </div> :
-          <div className={style.textMessage}>
-            <p>
-            
-              {item.text}
-            </p>
+                {item.text}
+              </p>
 
-          </div>}
-         </div>
+            </div>}
+        </div>
 
       messagesObjects.push(element)
     })
@@ -73,15 +78,25 @@ export default function Number({ messages }: any) {
         </button>
       </div>
       <div className={style.chating}>
+
         {messagesObjects}
+
       </div>
       <div className={style.txt}>
         <button className={style.anex}>
           <Image src={anex} width={30} height={30} alt=""></Image>
 
         </button>
-        <textarea name="txt" id="txtarea"></textarea>
-        <button className={style.sender}>
+        <textarea name="txt" id="txtarea" value={message} onChange={(ev) => { setMessage(ev.target.value) }}></textarea>
+        <button className={style.sender} onClick={() => {
+
+          io.emit('sendText', {
+            type: 'text',
+            number: rt.query.numb,
+            text: message
+          })
+          setMessage('')
+        }}>
           <Image src={sender} width={30} height={30} alt=""></Image>
         </button>
       </div>

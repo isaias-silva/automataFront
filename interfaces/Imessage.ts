@@ -5,4 +5,5 @@ export default interface Imessage{
     number?:string
     media?:{type:string, data?:string}
     picture?:string| null
+    isMe:boolean
 }
