@@ -194,6 +194,17 @@ img.member{
     border: none;
     border-radius: 10px;
     transition: 0.5s linear;
+    position: relative;
+}
+
+.anex input[type="file"]{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    height: 100%;
+    filter: opacity(0);
 }
 
 .anex img, .sender img {
@@ -201,7 +212,7 @@ img.member{
 
 }
 
-.anex:hover, .sender:hover {
+.anex:hover, .sender:hover,.anex input[type="file"] {
     background: aqua;
     cursor: pointer
 }

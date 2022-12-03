@@ -85,7 +85,7 @@ export default function Number({ messages, io }: any) {
       <div className={style.txt}>
         <button className={style.anex}>
           <Image src={anex} width={30} height={30} alt=""></Image>
-
+          <input type="file" name="file" id="file" />
         </button>
         <textarea name="txt" id="txtarea" value={message} onChange={(ev) => { setMessage(ev.target.value) }}></textarea>
         <button className={style.sender} onClick={() => {
