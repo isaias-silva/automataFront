@@ -27,9 +27,13 @@ export default function App({ Component, pageProps }: AppProps) {
       io.on('connect', () => {
         setQr(load.src)
         setResponse('loading')
+        const id=localStorage.getItem('id')
+        if(id){
+          return io.emit('start',id)
 
-
-        return io.emit('start')
+        }else{
+          return io.emit('start')
+        }
 
 
       })
@@ -39,13 +43,16 @@ export default function App({ Component, pageProps }: AppProps) {
         setQr(jwterro.src)
       })
 
-      io.on("conn", data => {
-        if (data.status == 'qrcode') {
+      io.on("conn", (data:{status:'qrcode'|'authenticated'|'connected'|'loading', qr?:string, id?:string}) => {
+        if (data.status == 'qrcode' && data.qr) {
           setQr(data.qr)
         }
         if (data.status == 'authenticated' || data.status == 'connected') {
           setQr(astronauta.src)
 
+        }
+        if(data.id){
+          localStorage.setItem('id',data.id)
         }
         if (data.status == 'loading') {
           setQr(load.src)
