@@ -29,6 +29,27 @@
     border-radius: 1px;
     height: auto;
 }
+.mediaChat audio{
+  border-radius: none;
+}
+.msgyou
+.mediaChat
+audio::-webkit-media-controls-panel {
+     background: #6e0cc0;
+    border:1px solid red
+     
+}
+.msghe
+.mediaChat
+audio::-webkit-media-controls-panel {
+     background: #fff;
+     border-style: none;
+     
+}
+.msgyou video, .msghe video{
+width: 100%;
+
+}
 .image {
     width: 60%;
     border-radius: 20px;
@@ -228,6 +249,7 @@ img.member{
     display: flex;
     min-height: 50px;
     flex-direction: column;
+    overflow: hidden;
 
 }
 
