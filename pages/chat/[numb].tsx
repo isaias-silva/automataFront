@@ -22,11 +22,8 @@ export default function Number({ messages, io }: any) {
     contact.msgs.map(async (item) => {
       let base64Src
       if (item.media?.data) {
-        base64Src = item.media.type == 'image' || item.media?.type == 'sticker' ?
-          `data:image/jpeg;base64,${item.media.data}` : item.media?.type == 'audio' ?
-            `data:audio/mp4;base64,${item.media.data}` : item.media.type == 'video' ?
-              `data:video/mp4;base64,${item.media.data}`
-              : item.type == 'doc' ? `data:application/;base64,${item.media.data}` : null
+
+        base64Src = `data:${item.media.mimetype};base64,${item.media.data}`
 
       }
 
@@ -41,7 +38,10 @@ export default function Number({ messages, io }: any) {
               {item.media?.type == 'image' || item.media?.type == 'sticker' ?
                 <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
                 item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
-                  item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> : null
+                  item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
+                    item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src}></iframe> : 
+                     <a href={base64Src} target="_blank" rel="noreferrer">{`file.${item.media?.mimetype.split('/')[1]}}`}</a>
+
               }
               <p>
                 {item.text}
@@ -62,7 +62,10 @@ export default function Number({ messages, io }: any) {
               {item.media?.type == 'image' || item.media?.type == 'sticker' ?
                 <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
                 item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
-                  item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> : null
+                  item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
+                    item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src} ></iframe> :
+                      <a href={base64Src} target="_blank" rel="noreferrer">{`file.${item.media?.mimetype.split('/')[1]}}`}</a>
+
               }
               <p>
                 {item.text}

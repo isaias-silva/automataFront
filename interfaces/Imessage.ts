@@ -3,7 +3,7 @@ export default interface Imessage{
     type: string
     name:string
     number?:string
-    media?:{type:string, data?:string}
+    media?:{type:string, data?:string,mimetype:string}
     picture?:string| null
     isMe:boolean
 }
