@@ -10,7 +10,6 @@ import { useState } from "react"
 export default function Number({ messages, io }: any) {
   const [message, setMessage] = useState('')
   const [anexo, setAnex]: any = useState()
-  const [reply,setReply]:any=useState()
   const rt = useRouter()
   const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || {}
   const messagesObjects: any = []
