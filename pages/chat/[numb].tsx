@@ -10,12 +10,14 @@ import { useState } from "react"
 export default function Number({ messages, io }: any) {
   const [message, setMessage] = useState('')
   const [anexo, setAnex]: any = useState()
+  const [reply,setReply]:any=useState()
   const rt = useRouter()
   const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || {}
   const messagesObjects: any = []
   const upload = (ev: any) => {
     setAnex(ev.target.files[0])
   }
+  
 //ALERTA EMARANHADO DE CODIGO COMPLETAMENTE INSANO ABAIXO
   if (contact.msgs) {
 
@@ -29,8 +31,8 @@ export default function Number({ messages, io }: any) {
 
       let element = contact.isGroup ?
         <div className={item.isMe ? style.msgyou : style.msghe}>
-          {item.quoted?
-          <div className={style.quoted}><p>{item.msgQuoted?.text||item.msgQuoted?.type}</p></div>:null}
+           {item.quoted?
+          <div className={style.quoted}><p>{item.msgQuoted?.text||'['+item.msgQuoted?.type+']'}</p></div>:null}
           {base64Src ?
             <div className={style.mediaChat}>
               {
@@ -59,7 +61,7 @@ export default function Number({ messages, io }: any) {
 
         </div> :
         <div className={item.isMe ? style.msgyou : style.msghe}>
-            {item.quoted?
+             {item.quoted?
           <div className={style.quoted}><p>{item.msgQuoted?.text || item.msgQuoted?.type}</p></div>:null}
           {base64Src ?
             <div className={style.mediaChat}>
@@ -109,7 +111,8 @@ export default function Number({ messages, io }: any) {
           <input type="file" name="file" id="file" onChange={upload} />
         </button>
         <textarea name="txt" id="txtarea" value={message} onChange={(ev) => { setMessage(ev.target.value) }}></textarea>
-        <button className={style.sender} onClick={async () => {
+       <button className={style.sender} onClick={async () => {
+             
           if (anexo) {
             alert('anex')
 
@@ -129,7 +132,8 @@ export default function Number({ messages, io }: any) {
               type: type,
               text: message,
               number: rt.query.numb,
-              mimetype: anexo.type
+              mimetype: anexo.type,
+          
             })
             setAnex(null)
 

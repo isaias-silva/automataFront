@@ -8,4 +8,5 @@ export default interface Imessage{
     isMe:boolean
     quoted?:boolean
     msgQuoted?:Imessage|null
+    msgObject?: any
 }

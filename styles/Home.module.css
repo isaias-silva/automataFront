@@ -249,7 +249,7 @@ img.member{
     display: flex;
     min-height: 50px;
     flex-direction: column;
-    overflow: hidden;
+    
 
 }
 
@@ -282,6 +282,31 @@ img.member{
     background: rgba(147, 16, 255, 0.74);
     color: #fff;
     left: 55%;
+}
+.msgyou button.reply{
+    position: absolute;
+    top: 0;
+    left: -50px;
+}
+.msghe button.reply{
+    position: absolute;
+    top: 0;
+    right: -50px;
+}
+.reply{
+    border: none;
+    background-color: rgba(255, 255, 255, 0.22);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.2s linear;
+    opacity: 0;
+}
+.reply:hover{
+    opacity: 1;
+    cursor: pointer;
 }
 
 .rotate {
