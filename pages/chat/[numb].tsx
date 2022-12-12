@@ -3,9 +3,9 @@ import { useRouter } from "next/router"
 import style from '../../styles/Home.module.css'
 import anex from '../../public/icon/anex.png'
 import sender from '../../public/icon/sender.png'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { Icontact } from "../../interfaces/Icontact"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export default function Number({ messages, io }: any) {
   const [message, setMessage] = useState('')
@@ -16,7 +16,7 @@ export default function Number({ messages, io }: any) {
   const upload = (ev: any) => {
     setAnex(ev.target.files[0])
   }
-
+//ALERTA EMARANHADO DE CODIGO COMPLETAMENTE INSANO ABAIXO
   if (contact.msgs) {
 
     contact.msgs.map(async (item) => {
@@ -29,6 +29,8 @@ export default function Number({ messages, io }: any) {
 
       let element = contact.isGroup ?
         <div className={item.isMe ? style.msgyou : style.msghe}>
+          {item.quoted?
+          <div className={style.quoted}><p>{item.msgQuoted?.text||item.msgQuoted?.type}</p></div>:null}
           {base64Src ?
             <div className={style.mediaChat}>
               {
@@ -40,8 +42,8 @@ export default function Number({ messages, io }: any) {
                 item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
                   item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
                     item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src}></iframe> : 
-                     <a href={base64Src} target="_blank" rel="noreferrer">{`file.${item.media?.mimetype.split('/')[1]}}`}</a>
-
+                    <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
+ para baixar.</span> 
               }
               <p>
                 {item.text}
@@ -57,6 +59,8 @@ export default function Number({ messages, io }: any) {
 
         </div> :
         <div className={item.isMe ? style.msgyou : style.msghe}>
+            {item.quoted?
+          <div className={style.quoted}><p>{item.msgQuoted?.text || item.msgQuoted?.type}</p></div>:null}
           {base64Src ?
             <div className={style.mediaChat}>
               {item.media?.type == 'image' || item.media?.type == 'sticker' ?
@@ -64,8 +68,8 @@ export default function Number({ messages, io }: any) {
                 item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
                   item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
                     item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src} ></iframe> :
-                      <a href={base64Src} target="_blank" rel="noreferrer">{`file.${item.media?.mimetype.split('/')[1]}}`}</a>
-
+                    <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
+                    para baixar.</span> 
               }
               <p>
                 {item.text}

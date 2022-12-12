@@ -257,6 +257,26 @@ img.member{
     margin: 5px;
     max-width: 100%;
 }
+.msghe a, .msgyou a{
+    color: aqua;
+} 
+.warking{
+    margin: 5px;
+    max-width: 100%;
+    font-style: italic;
+}
+.warking::before{
+    content: 'ⓘ '
+}
+
+.quoted{
+    width: 80%;
+    border: 1px solid aqua;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: rgba(0, 0, 255, 0.266);
+
+}
 
 .msgyou {
     background: rgba(147, 16, 255, 0.74);

@@ -6,4 +6,6 @@ export default interface Imessage{
     media?:{type:string, data?:string,mimetype:string}
     picture?:string| null
     isMe:boolean
+    quoted?:boolean
+    msgQuoted?:Imessage|null
 }
