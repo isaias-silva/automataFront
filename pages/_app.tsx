@@ -11,13 +11,14 @@ import load from '../public/images/load.png'
 import astronauta from '../public/images/astronaut.png'
 import jwterro from '../public/icon/jwt.png'
 import { Icontact } from '../interfaces/Icontact'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }: AppProps) {
 
   const [qr, setQr] = useState(load.src)
   const [response, setResponse] = useState('starting...')
   const [messages, setMessages]: Icontact[] | any = useState([])
-  
+  const route=useRouter()
   const io = useSocket('http://localhost:8080', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzE4NTEwMzZmZTUyZjEzZGJkYTZmZCIsIm5vbWUiOiJaYWNrIiwiY2xhc3NlIjoiYWRtIiwiZW1haWwiOiJpc2FpYXNnYXJyYWVsdXRhQGdtYWlsLmNvbSIsInZlcmlmeU1haWwiOnRydWUsImlhdCI6MTY3MTExNTU1NSwiZXhwIjoxNjcxMzc0NzU1fQ.QmILt17bQLROyVfIDsLSOmiNQWKibWdbSjn2UZ0ZhGs')
 
   useEffect(() => {
@@ -41,6 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
       io.on("connect_error", (err) => {
         setResponse(err.message)
         setQr(jwterro.src)
+        if(err.message=='jwt expired' || err.message=='xhr poll error'){
+          route.push('/login')
+        }
       })
 
       io.on("conn", (data:{status:'qrcode'|'authenticated'|'connected'|'loading', qr?:string, id?:string}) => {

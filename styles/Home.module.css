@@ -346,3 +346,22 @@ img.member{
     }
 }
 
+.login{
+    display: grid;
+    grid-template-columns: 100%;
+ 
+    
+}
+.login input{
+    width: 40%;
+    margin: auto;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.login button{
+    width: 30%;
+    margin:auto;
+    height: 40px;
+    font-size: 18px;
+}
