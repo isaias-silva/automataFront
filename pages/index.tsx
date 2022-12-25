@@ -8,7 +8,17 @@ import Message from '../components/Message'
 import styles from '../styles/Home.module.css'
 
 export default function Home({ io }: any) {
-  
+  const route=useRouter()
+  useEffect(()=>{
+    if(io){
+      io.on("connect_error", (err:Error) => {
+        if(err.message=='jwt expired' || err.message=='xhr poll error' || err.message=='jwt malformed'){
+          route.push('/login')
+        }
+      })
+    }
+   
+  })
   return (
   <>
   <h1>Automata universe</h1>

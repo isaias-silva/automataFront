@@ -3,7 +3,7 @@ import { Socket } from 'dgram'
 import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-export function useSocket(url: string, token: string): Socket {
+export function useSocket(url: string, token?: string|null): Socket {
     const [socket, setSocket]: Socket | any = useState(null)
 
     useEffect(() => {

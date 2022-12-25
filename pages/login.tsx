@@ -1,30 +1,51 @@
 import { AxiosError } from 'axios'
-import { useState } from 'react'
-import axios from '../services/axios'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import login from '../services/login'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
-    const [mail, getMail] = useState('')
-    const [pass, getPass] = useState('')
-    const [response,getResponse]:any=useState()
+export default function Login({ io }: any) {
+  
+    const [mail, setMail] = useState('')
+    const [pass, setPass] = useState('')
+    const [response,setResponse]:any=useState()
+    const route=useRouter()
     const checkLogin = async () => {
     try{
        const response= await login(mail,pass)
-         getResponse(response.data)     
+       
+         setResponse(response)
     }catch(err:any){
-        getResponse(err.response.data)
+        setResponse(err.response)
     }
         }
+    useEffect(()=>{
+        if(response?.data?.message){
+            alert(response.data.message)
 
+        }
+        if(response?.data?.token){
+            localStorage.setItem('keyToken', response.data.token);
+            route.reload(window?.location?.pathname)
+           route.push('/')
+
+        }
+    },[response,route])
+    useEffect(()=>{
+        if(io){
+            io.on('connect',()=>{
+                route.push('/')
+            })
+        }
+    })
     return (
         <>
             <h1>Login</h1>
             <div className={styles.login}>
-                <input onChange={(ev) => { getMail(ev.target.value) }} type="mail" name="email" placeholder="email" />
-                <input onChange={(ev) => { getPass(ev.target.value) }} type="password" name="senha" placeholder="senha" />
+                <input onChange={(ev) => { setMail(ev.target.value) }} type="mail" name="email" placeholder="email" />
+                <input onChange={(ev) => { setPass(ev.target.value) }} type="password" name="senha" placeholder="senha" />
                 <button type="submit" onClick={checkLogin}> entrar</button>
-                <h4>{response?.message||'resposta'}</h4>
+               
             </div>
 
         </>
