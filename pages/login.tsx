@@ -26,7 +26,7 @@ export default function Login({ io }: any) {
         }
         if(response?.data?.token){
             localStorage.setItem('keyToken', response.data.token);
-            route.reload(window?.location?.pathname)
+            route.reload()
            route.push('/')
 
         }
