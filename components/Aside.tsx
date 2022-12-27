@@ -3,6 +3,7 @@ import style from '../styles/Home.module.css'
 import genericImage from '../public/icon/img.png'
 import Message from './Message'
 import { Icontact } from '../interfaces/Icontact'
+import Menu from './menu'
 export default function Aside({ response, qr, messages }: { response: string, qr: string, messages: Icontact[] }) {
         const treatRes = (res: string) => {
                 switch (res) {
@@ -31,6 +32,7 @@ export default function Aside({ response, qr, messages }: { response: string, qr
                 }
         })
         return <aside className={style.aside}>
+                <Menu/>
                 <div className={style.image}>
                         <img src={qr} alt={"qr"} className={treatRes(response)} />
 
