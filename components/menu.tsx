@@ -1,18 +1,33 @@
 import { useState } from "react"
 import style from '../styles/Home.module.css'
+import Popup from "./popup"
 export default function Menu() {
+
     const [active, setActive] = useState(false)
+    const [popUp, setPopup] = useState('none')
+    const openPopUp = (value: 'none' | 'message' | 'disparo' | 'flux') => {
+        setPopup(value)
+    }
     const conteudo = active == false ?
         <div>
-            <button className={style.menubtn}>menu</button>
+            <button onClick={() => { setActive(true) }} className={style.menubtn}>&#8962;</button>
         </div>
-        : <div>
-            <button>x</button>
+        : <div className={style.menubarr}>
+            <button onClick={() => { setActive(false) }}>x</button>
             <h4>nome</h4>
             <h4>mail</h4>
+            <div className={style.barrComands}>
+                <h4>comandos</h4>
+                <button onClick={()=>{openPopUp('message')}}>mensagem para numero</button>
+                <button  onClick={()=>{openPopUp('disparo')}}>disparo</button>
+                <button  onClick={()=>{openPopUp('flux')}} >ir para fluxo</button>
+            </div>
         </div>
 
     return <>
         {conteudo}
+
+        {popUp != 'none' ? <Popup type={popUp} /> : null}
+
     </>
 }

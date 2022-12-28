@@ -11,7 +11,8 @@
     background-color: rgba(4, 49, 88, 0.386);
     overflow-y: scroll;
 }
-.mediaChat{
+
+.mediaChat {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,49 +20,51 @@
     justify-items: center;
 
 }
-.mediaChat .sticker{
+
+.mediaChat .sticker {
     width: 200px;
     border-radius: 10px;
     margin-bottom: 10px;
 }
-.mediaChat .image{
+
+.mediaChat .image {
     width: 100%;
     border-radius: 1px;
     height: auto;
 }
-.mediaChat audio{
-  border-radius: none;
+
+.mediaChat audio {
+    border-radius: none;
 }
-.msgyou
-.mediaChat
-audio::-webkit-media-controls-panel {
-     background: #6e0cc0;
-    border:1px solid red
-     
+
+.msgyou .mediaChat audio::-webkit-media-controls-panel {
+    background: #6e0cc0;
+    border: 1px solid red
 }
-.msghe
-.mediaChat
-audio::-webkit-media-controls-panel {
-     background: #fff;
-     border-style: none;
-     
-}
-.msgyou video, .msghe video{
-width: 100%;
+
+.msghe .mediaChat audio::-webkit-media-controls-panel {
+    background: #fff;
+    border-style: none;
 
 }
+
+.msgyou video, .msghe video {
+    width: 100%;
+
+}
+
 .image {
     width: 60%;
     border-radius: 20px;
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.446);
-  position: relative;
-  min-height: 200px;
+    position: relative;
+    min-height: 200px;
 }
 
 .image img {
     width: 100%;
-    top:0;
+    top: 0;
     position: absolute;
 }
 
@@ -72,6 +75,7 @@ width: 100%;
     background-color: rgba(6, 33, 64, 0.552);
     width: 70%;
     height: auto;
+    z-index: -1;
     min-height: 100vh;
 }
 
@@ -87,14 +91,14 @@ width: 100%;
     transition: 0.2s linear;
     position: relative;
     align-items: center;
-    word-wrap: break-word;    
+    word-wrap: break-word;
     overflow-wrap: break-word;
     -ms-word-break: break-all;
     /* This is the dangerous one in WebKit, as it breaks things wherever */
     word-break: break-all;
     /* Instead use this non-standard one: */
     word-break: break-word;
-  
+
 }
 
 .message:hover {
@@ -105,47 +109,54 @@ width: 100%;
 .message:active {
     background-color: blue;
 }
-.titleChat{
+
+.titleChat {
     font-weight: bold;
 }
+
 .message h4, .message p {
     margin: 0;
     text-align: left;
     word-wrap: break-word;
 }
-.messagesList{
+
+.messagesList {
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
 }
+
 .perfil {
     position: relative;
     width: 20%;
     height: 100%;
     top: 0;
- 
+
 }
+
 .perfil img {
     width: 100%;
     border-radius: 100%;
 }
-img.member{
+
+img.member {
     position: absolute;
     width: 30px;
-    left:0;
-    bottom:0;
-    border:2px solid rgb(0, 102, 255);
-    
+    left: 0;
+    bottom: 0;
+    border: 2px solid rgb(0, 102, 255);
+
 }
-.numberMsgs{
+
+.numberMsgs {
     position: absolute;
-    color:#fff;
+    color: #fff;
     background-color: red;
     font-size: 14px;
-  min-width: 30px;
-  height: 30px;
-    top:0;
-  text-align: center;
+    min-width: 30px;
+    height: 30px;
+    top: 0;
+    text-align: center;
     border-radius: 100%;
     display: block;
     padding: 5px;
@@ -218,7 +229,7 @@ img.member{
     position: relative;
 }
 
-.anex input[type="file"]{
+.anex input[type="file"] {
     width: 100%;
     position: absolute;
     top: 0;
@@ -233,7 +244,7 @@ img.member{
 
 }
 
-.anex:hover, .sender:hover,.anex input[type="file"] {
+.anex:hover, .sender:hover, .anex input[type="file"] {
     background: aqua;
     cursor: pointer
 }
@@ -249,7 +260,7 @@ img.member{
     display: flex;
     min-height: 50px;
     flex-direction: column;
-    
+
 
 }
 
@@ -257,19 +268,22 @@ img.member{
     margin: 5px;
     max-width: 100%;
 }
-.msghe a, .msgyou a{
+
+.msghe a, .msgyou a {
     color: aqua;
-} 
-.warking{
+}
+
+.warking {
     margin: 5px;
     max-width: 100%;
     font-style: italic;
 }
-.warking::before{
+
+.warking::before {
     content: 'ⓘ '
 }
 
-.quoted{
+.quoted {
     width: 80%;
     border: 1px solid aqua;
     border-radius: 5px;
@@ -283,17 +297,20 @@ img.member{
     color: #fff;
     left: 55%;
 }
-.msgyou button.reply{
+
+.msgyou button.reply {
     position: absolute;
     top: 0;
     left: -50px;
 }
-.msghe button.reply{
+
+.msghe button.reply {
     position: absolute;
     top: 0;
     right: -50px;
 }
-.reply{
+
+.reply {
     border: none;
     background-color: rgba(255, 255, 255, 0.22);
     width: 50px;
@@ -304,7 +321,8 @@ img.member{
     transition: 0.2s linear;
     opacity: 0;
 }
-.reply:hover{
+
+.reply:hover {
     opacity: 1;
     cursor: pointer;
 }
@@ -332,13 +350,13 @@ img.member{
 
 
     0% {
-        
-        top:0
+
+        top: 0
     }
 
     50% {
-       
-        top:50px;
+
+        top: 50px;
     }
 
     100% {
@@ -346,27 +364,88 @@ img.member{
     }
 }
 
-.login{
+.login {
     display: grid;
     grid-template-columns: 100%;
- 
-    
+
+
 }
-.login input{
+
+.login input {
     width: 40%;
     margin: auto;
     height: 40px;
     border-radius: 10px;
     border: 1px solid black;
 }
-.login button{
+
+.login button {
     width: 30%;
-    margin:auto;
+    margin: auto;
     height: 40px;
     font-size: 18px;
 }
-.menubtn{
-position: absolute;
-left: 0;
-top:0
+
+.menubtn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 24px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.157);
+    color: #fff;
+}
+
+.menubtn:hover {
+    cursor: pointer;
+    background: #fff;
+    color: #000;
+}
+
+.menubarr {
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.661);
+    width: 100%;
+    z-index: 1;
+    height: 100%;
+
+}
+
+.menubarr button {
+    background-color: red;
+    color: #fff;
+}
+
+.barrComands {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.barrComands button {
+    font-size: 18px;
+    width: 70%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #6e0cc0;
+}
+
+.popup {
+    position: fixed;
+    right: 0;
+    top:0;
+    background-color: rgba(0, 0, 0, 0.661);
+    width: 100vw;
+    z-index: 100000 !important;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup div{
+    width: 50%;
+    height: 300px;
+    background-color: #000;
+    border-radius: 10px;
 }
