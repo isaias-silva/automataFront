@@ -77,7 +77,7 @@ const [token,setToken]=useState(receivedToken('keyToken'))
 
 
 
-  return <Layout response={response} qr={qr} messages={messages}>
+  return <Layout response={response} qr={qr} messages={messages} io={io}>
     <Component {...pageProps}
       messages={messages} io={io} />
   </Layout>

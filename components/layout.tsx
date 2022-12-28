@@ -11,7 +11,7 @@ import jwterro from '../public/icon/jwt.png'
 import { Icontact } from '../interfaces/Icontact'
 
 
-export default function Layout({ children,response,qr,messages }: any) {
+export default function Layout({ children,response,qr,messages,io}: any) {
  
 
 
@@ -19,7 +19,8 @@ export default function Layout({ children,response,qr,messages }: any) {
   return <>
     <Aside response={response}
       qr={qr}
-      messages={messages} />
+      messages={messages} 
+      io={io}/>
     <section className={style.section}>
       {children}
     </section>

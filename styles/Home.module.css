@@ -446,6 +446,42 @@ img.member {
 .popup div{
     width: 50%;
     height: 300px;
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.461);
     border-radius: 10px;
+    border: 1px aqua solid;
+   
+    padding: 5px;
+    position: relative;
+}
+.popup div input[type='number']{
+    height:  30px;
+    width: 50%;
+}
+.popup div textarea{
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100px;
+    max-height: 100px;
+}
+.popup div button{
+    width: 20%;
+    height: 40px;
+    margin:auto;
+    
+}
+button.closebtn{
+    background-color: red;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    font-size: 24px;
+    border-radius: 100%;
+    z-index: 300000000000000;
+}
+.tela{
+    position: relative;
+    width: 100%;
 }

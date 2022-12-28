@@ -11,20 +11,23 @@ export default function Login({ io }: any) {
     const [response,setResponse]:any=useState()
     const route=useRouter()
     const checkLogin = async () => {
+        
     try{
        const response= await login(mail,pass)
-       
+ 
          setResponse(response)
     }catch(err:any){
+        
         setResponse(err.response)
     }
         }
     useEffect(()=>{
         if(response?.data?.message){
-            alert(response.data.message)
+         
 
         }
         if(response?.data?.token){
+           
             localStorage.setItem('keyToken', response.data.token);
             route.reload()
            route.push('/')
