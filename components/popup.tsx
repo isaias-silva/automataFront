@@ -1,16 +1,40 @@
 import { use, useEffect, useState } from 'react'
+import allflux from '../services/allflux'
 import style from '../styles/Home.module.css'
 
 export default function Popup({ type, io }: any) {
     const [number, setNumber]: any = useState()
     const [numbers, setNumbers] = useState('')
     const [message, setMessage]: any = useState()
+    const [fluxs, setFluxs] = useState()
+    const [fluxid,setFluxId]:any=useState()
+    useEffect(() => {
+        allflux()
+            .then((res) => {
+                const elements = res.data.map((value: { _id: string, title: string }) => {
+
+                    return <> <option value={value._id}>{value.title}</option></>
+                })
+                setFluxs(elements)
+            })
+            .catch((err) => {
+                if (err.response) {
+                    console.log(err.response.data);
+                    console.log(err.response.status);
+                    console.log(err.response.headers);
+                }
+
+                return null
+            })
+
+    }, []);
 
     const ioSend = (opt: 'message' | 'disparo' | 'flux') => {
 
         if (opt == 'message') {
 
             if (!number || !message) {
+                alert("preencha todos os valores")
                 return
             }
             io.emit('sendText', {
@@ -18,11 +42,13 @@ export default function Popup({ type, io }: any) {
                 number: `${number}@s.whatsapp.net`,
                 text: message
             })
-           
+
         }
         if (opt == 'disparo') {
             if (!numbers || !message) {
+                alert("preencha todos os valores")
                 return
+
             }
             const numbs = numbers.split(',').map((n) => n + '@s.whatsapp.net')
             io.emit('disparo', {
@@ -30,7 +56,19 @@ export default function Popup({ type, io }: any) {
                 message
             })
         }
-        setMessage(null)
+        if (opt == 'flux') {
+            if (!number || !fluxid) {
+                alert("preencha todos os valores")
+              
+                return
+            }
+            const jid = number+ '@s.whatsapp.net'
+            io.emit('flux', {
+                jid,
+                fluxid
+            })
+        }
+     
     }
 
 
@@ -66,10 +104,11 @@ export default function Popup({ type, io }: any) {
             component = <div>
                 <h3>{type}</h3>
                 <p>disparo de fluxo para numero</p>
-                <input type="number" placeholder='numeros' />
-                <textarea placeholder='mensagem'>
-
-                </textarea>
+                <select onChange={(ev) => {setFluxId(ev.target.value) }} value={fluxid}>
+                    {fluxs}
+                </select>
+                <input type="number" placeholder='numero' onChange={(ev) => { setNumber(ev.target.value) }} />
+            
                 <button onClick={() => { ioSend('flux') }}>enviar</button>
 
             </div>

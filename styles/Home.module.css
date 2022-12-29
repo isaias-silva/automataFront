@@ -469,6 +469,12 @@ img.member {
     margin:auto;
     
 }
+.popup div select{
+height: 26px;
+font-size: 16px;
+border: none;
+    
+}
 button.closebtn{
     background-color: red;
     position: absolute;
