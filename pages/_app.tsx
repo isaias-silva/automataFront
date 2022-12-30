@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/layout'
 import { useEffect, useState } from 'react'
-import socket from 'socket.io-client'
+import socket, { Socket } from 'socket.io-client'
 import { useSocket } from '../hooks/useSocket'
 
 //images
@@ -19,9 +19,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const [qr, setQr] = useState(load.src)
   const [response, setResponse] = useState('starting...')
   const [messages, setMessages]: Icontact[] | any = useState([])
-  const route=useRouter()
-const [token,setToken]=useState(receivedToken('keyToken'))  
-  const io = useSocket('http://localhost:8080',token)
+  const route = useRouter()
+  const [token, setToken]: any = useState(receivedToken('keyToken'))
+  const io=useSocket('http://localhost:8080',token)
+  
+
 
   useEffect(() => {
 
@@ -30,24 +32,24 @@ const [token,setToken]=useState(receivedToken('keyToken'))
       io.on('connect', () => {
         setQr(load.src)
         setResponse('loading')
-        const id=localStorage.getItem('id')
-        if(id){
-          return io.emit('start',id)
+        const id = localStorage.getItem('id')
+        if (id) {
+          return io.emit('start', id)
 
-        }else{
+        } else {
           return io.emit('start')
         }
 
 
       })
 
-      io.on("connect_error", (err) => {
+      io.on("connect_error", (err:Error) => {
         setResponse(err.message)
         setQr(jwterro.src)
-     
+
       })
 
-      io.on("conn", (data:{status:'qrcode'|'authenticated'|'connected'|'loading', qr?:string, id?:string}) => {
+      io.on("conn", (data: { status: 'qrcode' | 'authenticated' | 'connected' | 'loading', qr?: string, id?: string }) => {
         if (data.status == 'qrcode' && data.qr) {
           setQr(data.qr)
         }
@@ -55,8 +57,8 @@ const [token,setToken]=useState(receivedToken('keyToken'))
           setQr(astronauta.src)
 
         }
-        if(data.id){
-          localStorage.setItem('id',data.id)
+        if (data.id) {
+          localStorage.setItem('id', data.id)
         }
         if (data.status == 'loading') {
           setQr(load.src)

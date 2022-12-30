@@ -12,8 +12,8 @@ export default function Home({ io }: any) {
   useEffect(()=>{
     if(io){
       io.on("connect_error", (err:Error) => {
-        if(err.message=='jwt expired' || err.message=='xhr poll error' || err.message=='jwt malformed'){
-          localStorage.removeItem('keyToken')
+        if(err.message=='jwt expired' || err.message=='jwt malformed'){
+          
           route.push('/login')
         }
       })
