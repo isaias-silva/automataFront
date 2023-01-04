@@ -56,9 +56,11 @@ export default function App({ Component, pageProps }: AppProps) {
         if (data.status == 'authenticated' || data.status == 'connected') {
           setQr(astronauta.src)
 
+
         }
         if (data.id) {
           localStorage.setItem('id', data.id)
+          
         }
         if (data.status == 'loading') {
           setQr(load.src)
