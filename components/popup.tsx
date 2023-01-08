@@ -57,14 +57,14 @@ export default function Popup({ type, io }: any) {
             })
         }
         if (opt == 'flux') {
-            if (!number || !fluxid) {
+            if ( !fluxid) {
                 alert("preencha todos os valores")
               
                 return
             }
             const jid = number+ '@s.whatsapp.net'
             io.emit('flux', {
-                jid,
+                listid:'aaa',
                 fluxid
             })
         }
@@ -107,7 +107,7 @@ export default function Popup({ type, io }: any) {
                 <select onChange={(ev) => {setFluxId(ev.target.value) }} value={fluxid}>
                     {fluxs}
                 </select>
-                <input type="number" placeholder='numero' onChange={(ev) => { setNumber(ev.target.value) }} />
+             
             
                 <button onClick={() => { ioSend('flux') }}>enviar</button>
 
