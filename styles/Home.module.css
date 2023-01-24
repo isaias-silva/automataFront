@@ -279,7 +279,7 @@ img.member {
     font-style: italic;
 }
 
-.warking::before {
+.warking::before,.warkingUser p::before {
     content: 'ⓘ '
 }
 
@@ -492,4 +492,12 @@ button.closebtn{
 .tela{
     position: relative;
     width: 100%;
+}
+
+.warkingUser{
+    background-color:blue;
+    color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

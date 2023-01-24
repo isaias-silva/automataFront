@@ -16,8 +16,8 @@ export default function Number({ messages, io }: any) {
   const upload = (ev: any) => {
     setAnex(ev.target.files[0])
   }
-  
-//ALERTA EMARANHADO DE CODIGO COMPLETAMENTE INSANO ABAIXO
+
+  //ALERTA EMARANHADO DE CODIGO COMPLETAMENTE INSANO ABAIXO
   if (contact.msgs) {
 
     contact.msgs.map(async (item) => {
@@ -28,10 +28,18 @@ export default function Number({ messages, io }: any) {
 
       }
 
-      let element = contact.isGroup ?
+      let element = 
+      item.type === 'warking' ?
+      <div className={style.warkingUser}>
+        <p> {item.text}</p>
+      </div>
+      :
+      
+      
+      contact.isGroup ?
         <div className={item.isMe ? style.msgyou : style.msghe}>
-           {item.quoted?
-          <div className={style.quoted}><p>{item.msgQuoted?.text||'['+item.msgQuoted?.type+']'}</p></div>:null}
+          {item.quoted ?
+            <div className={style.quoted}><p>{item.msgQuoted?.text || '[' + item.msgQuoted?.type + ']'}</p></div> : null}
           {base64Src ?
             <div className={style.mediaChat}>
               {
@@ -42,9 +50,9 @@ export default function Number({ messages, io }: any) {
                 <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
                 item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
                   item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
-                    item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src}></iframe> : 
-                    <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
- para baixar.</span> 
+                    item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src}></iframe> :
+                      <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
+                        para baixar.</span>
               }
               <p>
                 {item.text}
@@ -60,8 +68,12 @@ export default function Number({ messages, io }: any) {
 
         </div> :
         <div className={item.isMe ? style.msgyou : style.msghe}>
-             {item.quoted?
-          <div className={style.quoted}><p>{item.msgQuoted?.text || item.msgQuoted?.type}</p></div>:null}
+          {
+          
+          
+          item.quoted ?
+
+            <div className={style.quoted}><p>{item.msgQuoted?.text || item.msgQuoted?.type}</p></div> : null}
           {base64Src ?
             <div className={style.mediaChat}>
               {item.media?.type == 'image' || item.media?.type == 'sticker' ?
@@ -69,20 +81,22 @@ export default function Number({ messages, io }: any) {
                 item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
                   item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
                     item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src} ></iframe> :
-                    <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
-                    para baixar.</span> 
+                      <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
+                        para baixar.</span>
               }
               <p>
                 {item.text}
               </p>
             </div> :
-            <div className={style.textMessage}>
-              <p>
+         
+              <div className={style.textMessage}>
 
-                {item.text}
-              </p>
+                <p>
+                  {item.text}
+                </p>
 
-            </div>}
+
+              </div>}
         </div>
 
       messagesObjects.push(element)
@@ -110,8 +124,8 @@ export default function Number({ messages, io }: any) {
           <input type="file" name="file" id="file" onChange={upload} />
         </button>
         <textarea name="txt" id="txtarea" value={message} onChange={(ev) => { setMessage(ev.target.value) }}></textarea>
-       <button className={style.sender} onClick={async () => {
-             
+        <button className={style.sender} onClick={async () => {
+
           if (anexo) {
             alert('anex')
 
@@ -132,7 +146,7 @@ export default function Number({ messages, io }: any) {
               text: message,
               number: rt.query.numb,
               mimetype: anexo.type,
-          
+
             })
             setAnex(null)
 
