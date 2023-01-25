@@ -15,10 +15,17 @@ export default function Aside({ response, qr, messages,io }: { response: string,
                                 return ''
                 }
         }
+
         const msgComponents = messages.map((item, i, arr) => {
                 if (item.msgs) {
                         const format = item.msgs[item.msgs.length > 0 ? item.msgs.length - 1 : 0]
+                        let isCall=false;
+                        item.msgs.forEach((value)=>{
+                                value.type==='warking'
+                                return isCall=true
+                        })
                         return <Message
+                                isCall={isCall}
                                 isGroup={item.isGroup}
                                 chatName={item.name}
                                 contactName={format?.name || format?.number || 'user'}

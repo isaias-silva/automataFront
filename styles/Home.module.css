@@ -279,10 +279,21 @@ img.member {
     font-style: italic;
 }
 
-.warking::before,.warkingUser p::before {
+.warking::before,.warkingUser p::before{
     content: 'ⓘ '
 }
-
+.warkingSpan{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    background-color: rgb(0, 255, 251);
+    display: block;
+    left:0;
+    color:#fff;
+   height: 100%;
+   animation: pisca-pisca 0.5s infinite;
+    
+}
 .quoted {
     width: 80%;
     border: 1px solid aqua;
@@ -500,4 +511,15 @@ button.closebtn{
     width: 100%;
     display: flex;
     justify-content: center;
+}
+@keyframes pisca-pisca {
+    0%{
+        filter: opacity(0);
+    }
+    50%{
+        filter: opacity(1);
+    }
+    100%{
+        filter: opacity(0);
+    }
 }

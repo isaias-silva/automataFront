@@ -3,6 +3,7 @@ import Link from 'next/link'
 import style from '../styles/Home.module.css'
 export default function Message({
     number,
+   isCall,
     text,
     img,
     memberImg,
@@ -10,6 +11,7 @@ export default function Message({
 contactName,
 chatName,
 isGroup}: {
+    isCall:boolean,
         chatName?:string,
         number: string,
         text: string,
@@ -31,11 +33,13 @@ isGroup}: {
               <img src={img} alt="" />
               {memberImg?<img src={memberImg} alt="member" className={style.member}/>:null}
               {size>1?<span className={style.numberMsgs}>{size}</span>:null}
+           
          
          </>:
          <>
               <img src={img} alt="" />
               {size>1?<span className={style.numberMsgs}>{size}</span>:null}
+          
          </>
          } 
 
@@ -52,6 +56,7 @@ isGroup}: {
             <p>{text}</p>
             
             </>}
+            {isCall?<span className={style.warkingSpan}>  </span>:null}
         </div>
     </Link>
 }
