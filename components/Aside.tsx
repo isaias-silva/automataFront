@@ -21,9 +21,11 @@ export default function Aside({ response, qr, messages,io }: { response: string,
                         const format = item.msgs[item.msgs.length > 0 ? item.msgs.length - 1 : 0]
                         let isCall=false;
                         item.msgs.forEach((value)=>{
-                                value.type==='warking'
-                                return isCall=true
-                        })
+                                if(value.type==='warking'){
+                                        return isCall=true
+
+                                }
+                                                        })
                         return <Message
                                 isCall={isCall}
                                 isGroup={item.isGroup}
