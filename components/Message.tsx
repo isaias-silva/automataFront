@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
+import { useState } from 'react'
 import style from '../styles/Home.module.css'
 export default function Message({
     number,
@@ -21,25 +22,25 @@ isGroup}: {
        contactName?:string
        isGroup:boolean
     }) {
-
+    const [call,setCall]=useState(isCall)
+    const [messagesNumb,setMessageNumb]=useState(size)
     let filterText = text
     if (text.length > 50) {
         filterText = text.substring(0, 50) + '...'
     }
-    return <Link href={`/chat/${number}`} className={style.message}>
+    return <Link href={`/chat/${number}`} className={style.message} onClick={()=>{setMessageNumb(0)}}>
         <div className={style.perfil}>
          {isGroup?<>
          
               <img src={img} alt="" />
               {memberImg?<img src={memberImg} alt="member" className={style.member}/>:null}
-              {size>1?<span className={style.numberMsgs}>{size}</span>:null}
+              {messagesNumb>1?<span className={style.numberMsgs}>{messagesNumb}</span>:null}
            
          
          </>:
          <>
               <img src={img} alt="" />
-              {size>1?<span className={style.numberMsgs}>{size}</span>:null}
-          
+              {messagesNumb>1?<span className={style.numberMsgs}>{messagesNumb}</span>:null}   
          </>
          } 
 
@@ -56,7 +57,7 @@ isGroup}: {
             <p>{text}</p>
             
             </>}
-            {isCall?<span className={style.warkingSpan}>  </span>:null}
+            {call?<span className={style.warkingSpan} onClick={()=>{setCall(false)}}>  </span>:null}
         </div>
     </Link>
 }
