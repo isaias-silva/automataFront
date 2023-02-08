@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import login from '../services/login'
@@ -28,7 +29,7 @@ export default function Login({ io }: any) {
         }
         if(response?.data?.token){
            
-            localStorage.setItem('keyToken', response.data.token);
+            Cookies.set('keyToken', response.data.token);
             route.reload()
            route.push('/')
 

@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import { useEffect, useState } from 'react'
 import socket, { Socket } from 'socket.io-client'
 import { useSocket } from '../hooks/useSocket'
-
+import Cookie from 'js-cookie'
 //images
 import load from '../public/images/load.png'
 import astronauta from '../public/images/astronaut.png'
@@ -21,8 +21,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const [messages, setMessages]: Icontact[] | any = useState([])
   const route = useRouter()
   const [token, setToken]: any = useState(receivedToken('keyToken'))
-  const io=useSocket('http://localhost:8080',token)
-  
+  const io = useSocket('http://localhost:8080', token)
+
 
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       io.on('connect', () => {
         setQr(load.src)
         setResponse('loading')
-        const id = localStorage.getItem('id')
+        const id = Cookie.get('id')
         if (id) {
           return io.emit('start', id)
 
@@ -43,13 +43,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
       })
 
-      io.on("connect_error", (err:Error) => {
+      io.on("connect_error", (err: Error) => {
         setResponse(err.message)
         setQr(jwterro.src)
 
       })
 
-      io.on("conn", (data: { status: 'qrcode' | 'authenticated' | 'connected' | 'loading', qr?: string, id?: string }) => {
+      io.on("conn", (data: { status: 'qrcode' | 'authenticated' | 'connected' | 'loading' | 'phone closed session', qr?: string, id?: string }) => {
         if (data.status == 'qrcode' && data.qr) {
           setQr(data.qr)
         }
@@ -59,15 +59,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
         }
         if (data.id) {
-          localStorage.setItem('id', data.id)
-          
+          Cookie.set('id', data.id);
+
         }
         if (data.status == 'loading') {
           setQr(load.src)
         }
+        if (data.status == 'phone closed session') {
+          setQr('https://cdn-icons-png.flaticon.com/512/1128/1128911.png')
+          Cookie.remove('id')
+        }
         setResponse(data.status)
 
       });
+
 
       io.on('msg', (msgs: Icontact[]) => {
 

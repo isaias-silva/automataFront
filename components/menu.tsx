@@ -1,4 +1,5 @@
 
+import Cookies from "js-cookie"
 import { redirect } from "next/dist/server/api-utils"
 import { useRouter } from "next/router"
 import { userInfo } from "os"
@@ -6,7 +7,7 @@ import { use, useEffect, useState } from "react"
 import userinfo from "../services/userInfo"
 import style from '../styles/Home.module.css'
 import Popup from "./popup"
-export default function Menu({io}:any) {
+export default function Menu({ io }: any) {
 
     const [active, setActive] = useState(false)
     const [popUp, setPopup] = useState('none')
@@ -30,10 +31,11 @@ export default function Menu({io}:any) {
             })
 
     }, []);
-    const logout=()=>{
+    const logout = () => {
         io.emit('logout')
-        localStorage.clear()
-    
+        Cookies.remove('id')
+        Cookies.remove('keyToken')
+
     }
 
     const openPopUp = (value: 'none' | 'message' | 'disparo' | 'flux') => {
@@ -54,7 +56,7 @@ export default function Menu({io}:any) {
                 <button onClick={() => { openPopUp('message') }}>mensagem para numero</button>
                 <button onClick={() => { openPopUp('disparo') }}>disparo</button>
                 <button onClick={() => { openPopUp('flux') }} >ir para fluxo</button>
-                <a onClick={() => { logout()}} href={'./login'} > sair</a>
+                <a onClick={() => { logout() }} href={'./login'} > sair</a>
             </div>
         </div>
 
@@ -62,8 +64,8 @@ export default function Menu({io}:any) {
         {conteudo}
 
         {popUp != 'none' ? <div className={style.tela}>
-        <button className={style.closebtn} onClick={()=>{setPopup('none')}}>x</button>
-            <Popup type={popUp} io={io}/>
+            <button className={style.closebtn} onClick={() => { setPopup('none') }}>x</button>
+            <Popup type={popUp} io={io} />
         </div> : null}
 
     </>
