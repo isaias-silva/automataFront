@@ -1,10 +1,11 @@
-.content{
+.content {
     width: 100%;
     display: grid;
     height: 100%;
-   display: flex
+    display: flex
 }
-.aside,.asideInvisible{
+
+.aside, .asideInvisible {
     grid-area: aside;
     position: relative;
     top: 0;
@@ -18,12 +19,13 @@
     background-color: rgba(4, 49, 88, 0.704);
     overflow-y: scroll;
     box-shadow: 0 0 10px #000;
-    transition: 1s linear;
+    transition: 0.3s linear;
+
 }
-.asideInvisible{
-   width: 0px;
-}
-.aside::-webkit-scrollbar,.asideInvisible::-webkit-scrollbar {
+
+
+
+.aside::-webkit-scrollbar, .asideInvisible::-webkit-scrollbar {
     display: none;
 }
 
@@ -86,13 +88,13 @@
 
 .section {
     text-align: center;
-   
+
     background-color: rgba(6, 33, 64, 0.552);
     width: 100%;
     height: auto;
 
     min-height: 100vh;
-   
+
 }
 
 .message {
@@ -116,7 +118,23 @@
     word-break: break-word;
 
 }
-
+.tinyMessage{
+    width: 100%;
+}
+.messageTiny .perfil{
+    width: 80px;
+    margin: auto;
+    margin-top: 10px;
+  
+}
+.messageTiny .perfil img{
+transition: 0.4s linear;
+   
+}
+.messageTiny:hover .perfil img{
+    transform: scale(1.1);
+    filter: opacity(0.6)
+}
 .message:hover {
     background: aquamarine;
     cursor: pointer;
@@ -423,7 +441,7 @@ img.member {
     color: #fff;
 }
 
-.openBarButton {
+.closeBarButton {
     position: absolute;
     top: 0;
     left: 35px;
@@ -435,9 +453,18 @@ img.member {
 
 }
 
-.openBarButton:hover {
+.openBarButton {
+    color: #fff;
+    background-color: #ffffff00;
+    border-radius: 10px;
+    transition: 0.5s linear;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.openBarButton:hover, .closeBarButton:hover {
     background-color: rgb(119, 1, 173);
-    cursor:pointer
+    cursor: pointer
 }
 
 .menubtn:hover {
@@ -553,6 +580,21 @@ button.closebtn {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.asideInvisible {
+    width: 10%;
+
+}
+
+.asideInvisible .image {
+    width: 100%;
+    min-height: 100px;
+}
+
+.asideInvisible .image img {
+    width: 100%;
+
 }
 
 @keyframes pisca-pisca {
