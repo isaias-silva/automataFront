@@ -44,6 +44,7 @@ export default function Menu({ io }: any) {
     const conteudo = active == false ?
         <div>
             <button onClick={() => { setActive(true) }} className={style.menubtn}>&#8962;</button>
+            
         </div>
         : <div className={style.menubarr}>
             <button onClick={() => { setActive(false) }}>x</button>

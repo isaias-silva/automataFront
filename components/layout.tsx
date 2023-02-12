@@ -11,18 +11,18 @@ import jwterro from '../public/icon/jwt.png'
 import { Icontact } from '../interfaces/Icontact'
 
 
-export default function Layout({ children,response,qr,messages,io}: any) {
- 
+export default function Layout({ children, response, qr, messages, io }: any) {
 
 
 
-  return <>
+
+  return <div className={style.content}>
     <Aside response={response}
       qr={qr}
-      messages={messages} 
-      io={io}/>
+      messages={messages}
+      io={io} />
     <section className={style.section}>
       {children}
     </section>
-  </>
+  </div>
 }

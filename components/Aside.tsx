@@ -4,7 +4,10 @@ import genericImage from '../public/icon/img.png'
 import Message from './Message'
 import { Icontact } from '../interfaces/Icontact'
 import Menu from './menu'
+import { useEffect, useState } from 'react'
 export default function Aside({ response, qr, messages, io }: { response: string, qr: string, messages: Icontact[], io: any }) {
+        const [visible, setVisible] = useState(true)
+     
         const treatRes = (res: string) => {
                 switch (res) {
                         case 'connected':
@@ -42,14 +45,19 @@ export default function Aside({ response, qr, messages, io }: { response: string
                         />
                 }
         })
-        return <aside className={style.aside}>
+        return <aside className={visible?style.aside:style.asideInvisible} >
+
                 {response == 'connected' ? <Menu io={io} /> : null}
+                <button className={style.openBarButton} onClick={() => {
+                        const response = visible ? false : true
+                        setVisible(response)
+                }}>&#11013;</button>
                 <div className={style.image}>
                         <img src={qr} alt={"qr"} className={treatRes(response)} />
-                        
+
                 </div>
                 <p>{response} {response == 'phone closed session' ? ', please reload' : null}</p>
-               
+
                 <div className={style.messagesList}>
 
                         {msgComponents}
