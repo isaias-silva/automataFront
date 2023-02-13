@@ -6,30 +6,49 @@ import sender from '../../public/icon/sender.png';
 import back from '../../public/icon/return.png';
 import Image from 'next/image'
 import { Icontact } from "../../interfaces/Icontact"
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+
+
 import Link from "next/link"
 
 export default function Number({ messages, io }: any) {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState<string>('')
   const [anexo, setAnex]: any = useState()
+  const [contact, setContact] = useState<Icontact | null>(null);
   const rt = useRouter()
-  const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || null
+  const targetRef = useRef<HTMLParagraphElement>(null);
+
   const messagesObjects: any = []
+
   const upload = (ev: any) => {
     setAnex(ev.target.files[0])
   }
-  useMemo(() => {
-    if (!contact) {
-      rt.push('/error')
-    } else {
-      const size=contact?.msgs?.filter(msg=>msg.read==false)?.length
-      if(size && size > 0){
-        io.emit('messageConfig', { id: contact?.id, read: true })
-      }
-  
+
+  const goToContactRoute = useCallback(() => {
+    const contactExist: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || null
+    return contactExist
+
+  }, [messages, rt.query.numb])
+
+  useEffect(() => {
+    setContact(goToContactRoute())
+    handleClick()
+    const size = contact?.msgs?.filter(msg => msg.read == false)?.length
+    if (size && size > 0) {
+      io.emit('messageConfig', { id: contact?.id, read: true })
+
+
     }
-  
-  }, [contact,io,rt])
+
+  }, [contact, goToContactRoute, io, messages, rt])
+
+  function handleClick() {
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+
   //ALERTA EMARANHADO DE CODIGO COMPLETAMENTE INSANO ABAIXO
   if (contact?.msgs) {
 
@@ -129,7 +148,7 @@ export default function Number({ messages, io }: any) {
       <div className={style.chating}>
 
         {messagesObjects}
-
+        <div ref={targetRef} id='foot'></div>
       </div>
       <div className={style.txt}>
         <button className={style.anex}>
@@ -138,7 +157,7 @@ export default function Number({ messages, io }: any) {
         </button>
         <textarea name="txt" id="txtarea" value={message} onChange={(ev) => { setMessage(ev.target.value) }}></textarea>
         <button className={style.sender} onClick={async () => {
-
+          
           if (anexo) {
 
             const buff = await anexo.arrayBuffer()
@@ -161,16 +180,19 @@ export default function Number({ messages, io }: any) {
 
             })
             setAnex(null)
-
+            setMessage('')
           } else {
-
-            io.emit('sendText', {
+            if(message==''){
+              return
+            }
+           io.emit('sendText', {
               type: 'text',
               number: rt.query.numb,
               text: message
             })
             setMessage('')
           }
+       
         }}>
           <Image src={sender} width={30} height={30} alt=""></Image>
         </button>
@@ -179,3 +201,5 @@ export default function Number({ messages, io }: any) {
 
   )
 }
+
+

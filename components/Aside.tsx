@@ -30,7 +30,7 @@ export default function Aside({ response, qr, messages, io }: { response: string
 
         const msgComponents = messages.map((item, i, arr) => {
                 if (item.msgs) {
-                        const size=item.msgs.filter((value)=>value.read==false)
+                        const size = item.msgs.filter((value) => value.read == false && value.isMe == false)
                         const format = item.msgs[item.msgs.length > 0 ? item.msgs.length - 1 : 0]
                         let isCall = false;
                         item.msgs.forEach((value) => {
@@ -40,7 +40,7 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 }
                         })
                         return <Message
-                               onClick={()=>{io.emit('messageConfig',{id:item.id,read:true})}}
+                                onClick={() => { io.emit('messageConfig', { id: item.id, read: true }) }}
                                 isCall={isCall}
                                 isGroup={item.isGroup}
                                 chatName={item.name}

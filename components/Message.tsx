@@ -26,7 +26,7 @@ export default function Message({
         isGroup: boolean,
         visibleAside: boolean
     }) {
-    const [call, setCall] = useState(isCall)
+    const [call, setCall] = useState(false)
     const [messagesNumb, setMessageNumb] = useState(0)
 
     let filterText = text
@@ -35,9 +35,9 @@ export default function Message({
     }
     useEffect(() => {
         setMessageNumb(size)
-        
+        setCall(isCall)
 
-    }, [messagesNumb, size])
+    }, [isCall, messagesNumb, size])
 
     return < Link href={`/chat/${number}`} className={visibleAside ? style.messageTiny : style.message} onClick={() => {
         onClick()

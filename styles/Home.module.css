@@ -238,6 +238,14 @@ img.member {
     overflow-y: scroll;
 
 }
+.chating::-webkit-scrollbar{
+    background-color: rgba(0, 0, 0, 0.433);
+    width: 10px;
+}
+.chating::-webkit-scrollbar-thumb{
+    background-color: aqua;
+    border-radius: 40px;
+}
 
 .msgs .txt {
     width: 100%;
