@@ -29,7 +29,7 @@ export default function Login({ io }: any) {
         }
         if(response?.data?.token){
            
-            Cookies.set('keyToken', response.data.token);
+            Cookies.set('keyToken', response.data.token,{expires: 3});
             route.reload()
            route.push('/')
 

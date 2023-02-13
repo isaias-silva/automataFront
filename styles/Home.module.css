@@ -118,23 +118,30 @@
     word-break: break-word;
 
 }
-.tinyMessage{
+
+.tinyMessage {
     width: 100%;
 }
-.messageTiny .perfil{
+
+.messageTiny .perfil {
     width: 80px;
     margin: auto;
     margin-top: 10px;
-  
+
 }
-.messageTiny .perfil img{
-transition: 0.4s linear;
-   
+
+.messageTiny .perfil img {
+    transition: 0.4s linear;
+
 }
-.messageTiny:hover .perfil img{
+
+
+
+.messageTiny:hover .perfil img {
     transform: scale(1.1);
     filter: opacity(0.6)
 }
+
 .message:hover {
     background: aquamarine;
     cursor: pointer;
@@ -250,7 +257,7 @@ img.member {
 
 }
 
-.sender, .anex {
+.sender, .anex, .linkReturn {
     width: 10%;
     background: rgba(24, 6, 126, 0.459);
     color: #fff;
@@ -271,14 +278,25 @@ img.member {
     filter: opacity(0);
 }
 
-.anex img, .sender img {
+.anex img, .sender img, .linkReturn img {
     filter: invert(100%);
 
 }
 
-.anex:hover, .sender:hover, .anex input[type="file"] {
+.anex:hover, .sender:hover, .linkReturn:hover, .anex input[type="file"] {
     background: aqua;
     cursor: pointer
+}
+
+.linkReturn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkReturn img {
+    width: auto;
+    margin: auto;
 }
 
 .msghe, .msgyou {

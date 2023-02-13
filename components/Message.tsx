@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../styles/Home.module.css'
 export default function Message({
+    onClick,
     number,
     isCall,
     text,
@@ -13,6 +14,7 @@ export default function Message({
     chatName,
     isGroup,
     visibleAside }: {
+        onClick: Function,
         isCall: boolean,
         chatName?: string,
         number: string,
@@ -25,23 +27,32 @@ export default function Message({
         visibleAside: boolean
     }) {
     const [call, setCall] = useState(isCall)
-    const [messagesNumb, setMessageNumb] = useState(size)
+    const [messagesNumb, setMessageNumb] = useState(0)
+
     let filterText = text
     if (text.length > 50) {
         filterText = text.substring(0, 50) + '...'
     }
-    return < Link href={`/chat/${number}`} className={visibleAside ? style.messageTiny : style.message} onClick={() => { setMessageNumb(0) }}>
+    useEffect(() => {
+        setMessageNumb(size)
+        
+
+    }, [messagesNumb, size])
+
+    return < Link href={`/chat/${number}`} className={visibleAside ? style.messageTiny : style.message} onClick={() => {
+        onClick()
+    }}>
         <div className={style.perfil}>
 
             {isGroup ? <>
                 <img src={img} alt="" />
                 {memberImg ? <img src={memberImg} alt="member" className={style.member} /> : null}
-                {messagesNumb > 1 ? <span className={style.numberMsgs}>{messagesNumb}</span> : null}
+                {messagesNumb >= 1 ? <span className={style.numberMsgs}>{messagesNumb}</span> : null}
 
             </> :
                 <>
                     <img src={img} alt="" />
-                    {messagesNumb > 1 ? <span className={style.numberMsgs}>{messagesNumb}</span> : null}
+                    {messagesNumb >= 1 ? <span className={style.numberMsgs}>{messagesNumb}</span> : null}
                 </>
             }
 

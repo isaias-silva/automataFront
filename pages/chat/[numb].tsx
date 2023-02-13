@@ -2,25 +2,38 @@
 import { useRouter } from "next/router"
 import style from '../../styles/Home.module.css'
 import anex from '../../public/icon/anex.png'
-import sender from '../../public/icon/sender.png'
+import sender from '../../public/icon/sender.png';
+import back from '../../public/icon/return.png';
 import Image from 'next/image'
 import { Icontact } from "../../interfaces/Icontact"
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
 
 export default function Number({ messages, io }: any) {
   const [message, setMessage] = useState('')
   const [anexo, setAnex]: any = useState()
   const rt = useRouter()
-  const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || {}
+  const contact: Icontact = messages.filter((item: Icontact) => item.id == rt.query.numb)[0] || null
   const messagesObjects: any = []
   const upload = (ev: any) => {
     setAnex(ev.target.files[0])
   }
-
+  useMemo(() => {
+    if (!contact) {
+      rt.push('/error')
+    } else {
+      const size=contact?.msgs?.filter(msg=>msg.read==false)?.length
+      if(size && size > 0){
+        io.emit('messageConfig', { id: contact?.id, read: true })
+      }
+  
+    }
+  
+  }, [contact,io,rt])
   //ALERTA EMARANHADO DE CODIGO COMPLETAMENTE INSANO ABAIXO
-  if (contact.msgs) {
+  if (contact?.msgs) {
 
-    contact.msgs.map(async (item) => {
+    contact?.msgs.map(async (item) => {
       let base64Src
       if (item.media?.data) {
 
@@ -28,76 +41,76 @@ export default function Number({ messages, io }: any) {
 
       }
 
-      let element = 
-      item.type === 'warking' ?
-      <div className={style.warkingUser}>
-        <p> {item.text}</p>
-      </div>
-      :
-      
-      
-      contact.isGroup ?
-        <div className={item.isMe ? style.msgyou : style.msghe}>
-          {item.quoted ?
-            <div className={style.quoted}><p>{item.msgQuoted?.text || '[' + item.msgQuoted?.type + ']'}</p></div> : null}
-          {base64Src ?
-            <div className={style.mediaChat}>
+      let element =
+        item.type === 'warking' ?
+          <div className={style.warkingUser}>
+            <p> {item.text}</p>
+          </div>
+          :
+
+
+          contact?.isGroup ?
+            <div className={item.isMe ? style.msgyou : style.msghe}>
+              {item.quoted ?
+                <div className={style.quoted}><p>{item.msgQuoted?.text || '[' + item.msgQuoted?.type + ']'}</p></div> : null}
+              {base64Src ?
+                <div className={style.mediaChat}>
+                  {
+                    item.isMe ? null : <span className={style.titleChat}>{item.name}: </span>
+
+                  }
+                  {item.media?.type == 'image' || item.media?.type == 'sticker' ?
+                    <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
+                    item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
+                      item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
+                        item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src}></iframe> :
+                          <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
+                            para baixar.</span>
+                  }
+                  <p>
+                    {item.text}
+                  </p>
+                </div> :
+                <div className={style.textMessage}>
+                  <p>
+                    <span className={style.titleChat}>{item.name}: </span>
+                    {item.text}
+                  </p>
+
+                </div>}
+
+            </div> :
+            <div className={item.isMe ? style.msgyou : style.msghe}>
               {
-                item.isMe ? null : <span className={style.titleChat}>{item.name}: </span>
-
-              }
-              {item.media?.type == 'image' || item.media?.type == 'sticker' ?
-                <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
-                item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
-                  item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
-                    item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src}></iframe> :
-                      <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
-                        para baixar.</span>
-              }
-              <p>
-                {item.text}
-              </p>
-            </div> :
-            <div className={style.textMessage}>
-              <p>
-                <span className={style.titleChat}>{item.name}: </span>
-                {item.text}
-              </p>
-
-            </div>}
-
-        </div> :
-        <div className={item.isMe ? style.msgyou : style.msghe}>
-          {
-          
-          
-          item.quoted ?
-
-            <div className={style.quoted}><p>{item.msgQuoted?.text || item.msgQuoted?.type}</p></div> : null}
-          {base64Src ?
-            <div className={style.mediaChat}>
-              {item.media?.type == 'image' || item.media?.type == 'sticker' ?
-                <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
-                item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
-                  item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
-                    item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src} ></iframe> :
-                      <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
-                        para baixar.</span>
-              }
-              <p>
-                {item.text}
-              </p>
-            </div> :
-         
-              <div className={style.textMessage}>
-
-                <p>
-                  {item.text}
-                </p>
 
 
-              </div>}
-        </div>
+                item.quoted ?
+
+                  <div className={style.quoted}><p>{item.msgQuoted?.text || item.msgQuoted?.type}</p></div> : null}
+              {base64Src ?
+                <div className={style.mediaChat}>
+                  {item.media?.type == 'image' || item.media?.type == 'sticker' ?
+                    <img src={base64Src} alt="image" className={style[item?.media?.type || 'default']} /> :
+                    item.media?.type == 'audio' ? <audio controls><source src={base64Src} /></audio> :
+                      item.media?.type == 'video' ? <video controls> <source src={base64Src} /></video> :
+                        item.media?.type == 'document' && item.media.mimetype == "application/pdf" ? <iframe src={base64Src} ></iframe> :
+                          <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
+                            para baixar.</span>
+                  }
+                  <p>
+                    {item.text}
+                  </p>
+                </div> :
+
+                <div className={style.textMessage}>
+
+                  <p>
+                    {item.text}
+                  </p>
+
+
+                </div>}
+            </div>
 
       messagesObjects.push(element)
     })
@@ -107,11 +120,11 @@ export default function Number({ messages, io }: any) {
 
     <div className={style.msgs}>
       <div className={style.titleContainer}>
-        <img src={contact.picture || 'nan'} alt="perfil" />
-        <h1>{contact.name || 'erro'}</h1>
-        <button className={style.sender}>
-          {'<-'}
-        </button>
+        <img src={contact?.picture || 'nan'} alt="perfil" />
+        <h1>{contact?.name || 'erro'}</h1>
+        <Link href={'/'} className={style.linkReturn}>
+          <Image src={back} width={30} height={30} alt=""></Image>
+        </Link>
       </div>
       <div className={style.chating}>
 
@@ -127,7 +140,6 @@ export default function Number({ messages, io }: any) {
         <button className={style.sender} onClick={async () => {
 
           if (anexo) {
-            alert('anex')
 
             const buff = await anexo.arrayBuffer()
             const types = anexo.type.split('/')
@@ -151,7 +163,7 @@ export default function Number({ messages, io }: any) {
             setAnex(null)
 
           } else {
-            alert('text')
+
             io.emit('sendText', {
               type: 'text',
               number: rt.query.numb,

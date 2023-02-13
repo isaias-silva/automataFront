@@ -59,7 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
         }
         if (data.id) {
-          Cookie.set('id', data.id);
+          Cookie.set('id', data.id, { expires: 3 });
 
         }
         if (data.status == 'loading') {
