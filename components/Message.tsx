@@ -30,10 +30,12 @@ export default function Message({
     const [messagesNumb, setMessageNumb] = useState(0)
 
     let filterText = text
-    if (text.length > 50) {
-        filterText = text.substring(0, 50) + '...'
+
+    if (filterText.length > 40) {
+        filterText = filterText.substring(0, 40).concat('...')
     }
     useEffect(() => {
+
         setMessageNumb(size)
         setCall(isCall)
 
@@ -66,7 +68,7 @@ export default function Message({
                 </> :
                 <>
                     <h4>{chatName || 'unamed'}:</h4>
-                    <p>{text}</p>
+                    <p>{filterText}</p>
 
                 </>}
             {call ? <span className={style.warkingSpan} onClick={() => { setCall(false) }}>  </span> : null}

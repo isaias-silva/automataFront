@@ -13,7 +13,7 @@ import Link from "next/link"
 
 export default function Number({ messages, io }: any) {
   const [message, setMessage] = useState<string>('')
-  const [anexo, setAnex]: any = useState()
+  const [anexo, setAnex] = useState<File | null>(null)
   const [contact, setContact] = useState<Icontact | null>(null);
   const rt = useRouter()
   const targetRef = useRef<HTMLParagraphElement>(null);
@@ -30,7 +30,46 @@ export default function Number({ messages, io }: any) {
 
   }, [messages, rt.query.numb])
 
+  const sendMessage = async () => {
+
+    if (anexo) {
+
+      const buff = await anexo.arrayBuffer()
+      const types = anexo.type.split('/')
+      console.log(types)
+      const type = types[0] == 'image' ? 'picture' :
+        types[0] == 'audio' ? 'audio' :
+          types[0] == 'video' ? 'video' : 'document'
+      console.log(types)
+
+      if (!type) {
+        alert('anexo não compativel')
+        return
+      }
+      io.emit('upload', buff, {
+        type: type,
+        text: message,
+        number: rt.query.numb,
+        mimetype: anexo.type,
+
+      })
+      setAnex(null)
+      setMessage('')
+    } else {
+      if (message == '') {
+        return
+      }
+      io.emit('sendText', {
+        type: 'text',
+        number: rt.query.numb,
+        text: message
+      })
+      setMessage('')
+    }
+
+  }
   useEffect(() => {
+
     setContact(goToContactRoute())
     handleClick()
     const size = contact?.msgs?.filter(msg => msg.read == false)?.length
@@ -41,6 +80,7 @@ export default function Number({ messages, io }: any) {
     }
 
   }, [contact, goToContactRoute, io, messages, rt])
+
 
   function handleClick() {
     if (targetRef.current) {
@@ -59,7 +99,10 @@ export default function Number({ messages, io }: any) {
         base64Src = `data:${item.media.mimetype};base64,${item.media.data}`
 
       }
-
+      const texts = item?.text?.split('\n')
+      const textformat = texts?.map((paragraph, key) => {
+        return <p key={key}>{paragraph}</p>
+      })
       let element =
         item.type === 'warking' ?
           <div className={style.warkingUser}>
@@ -91,10 +134,10 @@ export default function Number({ messages, io }: any) {
                   </p>
                 </div> :
                 <div className={style.textMessage}>
-                  <p>
+                  <div>
                     <span className={style.titleChat}>{item.name}: </span>
-                    {item.text}
-                  </p>
+                    {textformat}
+                  </div>
 
                 </div>}
 
@@ -116,16 +159,15 @@ export default function Number({ messages, io }: any) {
                           <span className={style.warking}>arquivo não suportado, <a href={base64Src} target="_blank" rel="noreferrer">{'clique aqui '}</a>
                             para baixar.</span>
                   }
-                  <p>
-                    {item.text}
-                  </p>
+                  <div>
+                    {textformat}
+                  </div>
                 </div> :
 
                 <div className={style.textMessage}>
-
-                  <p>
-                    {item.text}
-                  </p>
+                  <div>
+                    {textformat}
+                  </div>
 
 
                 </div>}
@@ -151,49 +193,20 @@ export default function Number({ messages, io }: any) {
         <div ref={targetRef} id='foot'></div>
       </div>
       <div className={style.txt}>
+        {anexo ?
+          <div className={style.anexInfo}>
+            <p>{anexo?.name || 'arquivo'}</p>
+            <button onClick={() => { setAnex(null) }}>
+              x
+            </button>
+          </div>
+          : null}
         <button className={style.anex}>
           <Image src={anex} width={30} height={30} alt=""></Image>
           <input type="file" name="file" id="file" onChange={upload} />
         </button>
         <textarea name="txt" id="txtarea" value={message} onChange={(ev) => { setMessage(ev.target.value) }}></textarea>
-        <button className={style.sender} onClick={async () => {
-          
-          if (anexo) {
-
-            const buff = await anexo.arrayBuffer()
-            const types = anexo.type.split('/')
-            console.log(types)
-            const type = types[0] == 'image' ? 'picture' :
-              types[0] == 'audio' ? 'audio' :
-                types[0] == 'video' ? 'video' : 'document'
-            console.log(types)
-
-            if (!type) {
-              alert('anexo não compativel')
-              return
-            }
-            io.emit('upload', buff, {
-              type: type,
-              text: message,
-              number: rt.query.numb,
-              mimetype: anexo.type,
-
-            })
-            setAnex(null)
-            setMessage('')
-          } else {
-            if(message==''){
-              return
-            }
-           io.emit('sendText', {
-              type: 'text',
-              number: rt.query.numb,
-              text: message
-            })
-            setMessage('')
-          }
-       
-        }}>
+        <button className={style.sender} onClick={sendMessage}>
           <Image src={sender} width={30} height={30} alt=""></Image>
         </button>
       </div>

@@ -54,7 +54,14 @@
 .mediaChat audio {
     border-radius: none;
 }
+.mediaChat iframe{
+    width: 100%;
+    border: none;
+}
 
+.msgyou,.msghe{
+    overflow: hidden;
+}
 .msgyou .mediaChat audio::-webkit-media-controls-panel {
     background: #6e0cc0;
     border: 1px solid red
@@ -253,8 +260,31 @@ img.member {
     justify-content: space-between;
     background-color: #000;
     align-items: center;
+    position: relative;
 }
-
+.txt .anexInfo{
+    position: absolute;
+    background-color: rgb(0, 121, 121);
+    top:-50px;
+    height: 50px;
+    width: 20%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 4px;
+}
+.anexInfo button{
+padding: 5px;
+width: 30px;
+height: 30px;
+background-color: red;
+color: #fff;
+border-radius: 100%;
+flex-shrink: 0;
+}
 .txt textarea {
     height: 40px;
     width: 70%;
