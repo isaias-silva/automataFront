@@ -48,7 +48,9 @@ export default function App({ Component, pageProps }: AppProps) {
         setQr(jwterro.src)
 
       })
-
+      io.on('error_process',(erro)=>{
+        alert(erro.message)
+      })
       io.on("conn", (data: { status: 'qrcode' | 'authenticated' | 'connected' | 'loading' | 'phone closed session', qr?: string, id?: string }) => {
         if (data.status == 'qrcode' && data.qr) {
           setQr(data.qr)
@@ -59,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
         }
         if (data.id) {
-          Cookie.set('id', data.id, { expires: 3 });
+          Cookie.set('id', data.id, { expires: 7 });
 
         }
         if (data.status == 'loading') {

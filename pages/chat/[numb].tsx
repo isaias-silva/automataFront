@@ -35,6 +35,7 @@ export default function Number({ messages, io }: any) {
     if (anexo) {
 
       const buff = await anexo.arrayBuffer()
+      
       const types = anexo.type.split('/')
       console.log(types)
       const type = types[0] == 'image' ? 'picture' :
