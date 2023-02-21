@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { use, useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import allflux from "../services/allflux";
+import allList from "../services/allLists";
 import style from "../styles/Home.module.css";
 
 export default function Popup({
@@ -17,7 +18,9 @@ export default function Popup({
   const [numbers, setNumbers] = useState("");
   const [message, setMessage]: any = useState();
   const [fluxs, setFluxs] = useState();
+  const [lists, setLists] = useState();
   const [fluxid, setFluxId]: any = useState();
+  const [listId, setListId]: any = useState();
   const router = useRouter();
 
   useEffect(() => {
@@ -34,6 +37,29 @@ export default function Popup({
           }
         );
         setFluxs(elements);
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        }
+
+        return null;
+      });
+    allList()
+      .then((res) => {
+        const elements = res.data.map(
+          (value: { _id: string; title: string }) => {
+            return (
+              <>
+                {" "}
+                <option value={value._id}>{value.title}</option>
+              </>
+            );
+          }
+        );
+        setLists(elements);
       })
       .catch((err) => {
         if (err.response) {
@@ -70,17 +96,17 @@ export default function Popup({
       });
     }
     if (opt == "flux") {
-      if (!fluxid) {
+      if (!fluxid || !listId) {
         alert("preencha todos os valores");
 
         return;
       }
       io.emit("flux", {
-        listid: "aaa",
+        listid: listId,
         fluxid,
       });
     }
-    closeFunction()
+    closeFunction();
   };
 
   let component = <></>;
@@ -156,7 +182,14 @@ export default function Popup({
           >
             {fluxs}
           </select>
-
+          <select
+            onChange={(ev) => {
+              setListId(ev.target.value);
+            }}
+            value={listId}
+          >
+            {lists}
+          </select>
           <button
             onClick={() => {
               ioSend("flux");

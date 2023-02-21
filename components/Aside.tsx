@@ -69,7 +69,7 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 {msgComponents}
                         </div>
                 </> : <>
-                        {response == 'connected' ? <Menu io={io} /> : null}
+                        { <Menu io={io} />}
                         <button className={style.closeBarButton} onClick={() => {
                                 const response = visible ? false : true
                                 setVisible(response)
