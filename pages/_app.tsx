@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [messages, setMessages]: Icontact[] | any = useState([])
   const route = useRouter()
   const [token, setToken]: any = useState(receivedToken('keyToken'))
-  const io = useSocket('http://localhost:8080', token)
+  const io = useSocket('http://localhost:8081', token)
 
 
 

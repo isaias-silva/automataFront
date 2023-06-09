@@ -5,6 +5,7 @@ import Message from './Message'
 import { Icontact } from '../interfaces/Icontact'
 import Menu from './menu'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 export default function Aside({ response, qr, messages, io }: { response: string, qr: string, messages: Icontact[], io: any }) {
         const [visible, setVisible] = useState(true)
         const [erase, setErase] = useState(false)
@@ -62,7 +63,7 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 setVisible(response)
                         }}>&#8921;</button>
                         <div className={style.image}>
-                                <img src={qr} alt={"qr"} className={treatRes(response)} />
+                                <img src={qr} alt={"qr"} className={treatRes(response)} width={200} height={200} />
                         </div>
                         <div className={style.messagesList}>
 
@@ -75,9 +76,11 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 setVisible(response)
                         }}>&#11013;</button>
                         <div className={style.image}>
-                                <img src={qr} alt={"qr"} className={treatRes(response)} />
-
+                  
+                        <img src={qr} alt={"qr"} className={treatRes(response)}  />
+                        
                         </div>
+                      
                         <p>{response} {response == 'phone closed session' ? ', please reload' : null}</p>
 
                         <div className={style.messagesList}>
