@@ -13,7 +13,7 @@ export default function Message({
     contactName,
     chatName,
     isGroup,
-    visibleAside }: {
+    visibleAside, date }: {
         onClick: Function,
         isCall: boolean,
         chatName?: string,
@@ -24,7 +24,8 @@ export default function Message({
         size: number,
         contactName?: string,
         isGroup: boolean,
-        visibleAside: boolean
+        visibleAside: boolean,
+        date?: string
     }) {
     const [call, setCall] = useState(false)
     const [messagesNumb, setMessageNumb] = useState(0)
@@ -50,6 +51,7 @@ export default function Message({
                 <img src={img} alt="" />
                 {memberImg ? <img src={memberImg} alt="member" className={style.member} /> : null}
                 {messagesNumb >= 1 ? <span className={style.numberMsgs}>{messagesNumb}</span> : null}
+                
 
             </> :
                 <>
@@ -72,6 +74,7 @@ export default function Message({
 
                 </>}
             {call ? <span className={style.warkingSpan} onClick={() => { setCall(false) }}>  </span> : null}
+       {date ?<span>{ date}</span> : null}
         </div>}
 
     </Link >

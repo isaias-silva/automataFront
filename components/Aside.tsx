@@ -41,6 +41,7 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 }
                         })
                         return <Message
+
                                 onClick={() => { io.emit('messageConfig', { id: item.id, read: true }) }}
                                 isCall={isCall}
                                 isGroup={item.isGroup}
@@ -53,6 +54,7 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 memberImg={format?.picture || genericImage.src}
                                 size={size.length}
                                 visibleAside={erase}
+                                date={format.date}
                         />
                 }
         })
@@ -70,17 +72,17 @@ export default function Aside({ response, qr, messages, io }: { response: string
                                 {msgComponents}
                         </div>
                 </> : <>
-                        { <Menu io={io} />}
+                        {<Menu io={io} />}
                         <button className={style.closeBarButton} onClick={() => {
                                 const response = visible ? false : true
                                 setVisible(response)
                         }}>&#11013;</button>
                         <div className={style.image}>
-                  
-                        <img src={qr} alt={"qr"} className={treatRes(response)}  />
-                        
+
+                                <img src={qr} alt={"qr"} className={treatRes(response)} />
+
                         </div>
-                      
+
                         <p>{response} {response == 'phone closed session' ? ', please reload' : null}</p>
 
                         <div className={style.messagesList}>
