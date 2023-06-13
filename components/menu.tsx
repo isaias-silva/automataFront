@@ -1,7 +1,5 @@
 import Cookies from "js-cookie";
-import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/router";
-import { userInfo } from "os";
+
 import { use, useEffect, useState } from "react";
 import userinfo from "../services/userInfo";
 import style from "../styles/Home.module.css";
@@ -9,7 +7,7 @@ import Popup from "./popup";
 export default function Menu({ io }: any) {
   const [active, setActive] = useState(false);
   const [popUp, setPopup] = useState("none");
-  const [user, setUser]: any = useState();
+  const [user, setUser] = useState<{ name: string, class: string, email: string }>();
 
   useEffect(() => {
     userinfo()
@@ -57,8 +55,8 @@ export default function Menu({ io }: any) {
         >
           x
         </button>
-        <h4>{user?.nome || "nome"}</h4>
-        <h4>{user?.classe || "classe"}</h4>
+        <h4>{user?.name || "nome"}</h4>
+        <h4>{user?.class || "classe"}</h4>
         <h4>{user?.email || "email"}</h4>
         <h4></h4>
         <div className={style.barrComands}>

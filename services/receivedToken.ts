@@ -4,6 +4,8 @@ import Cookies from "js-cookie"
 export default (key: string) => {
     if (typeof window !== 'undefined') {
        const token= Cookies.get(key)
+       
        return token
+
     }
 }

@@ -47,7 +47,7 @@ export default function Number({ messages, io }: any) {
         alert('anexo não compativel')
         return
       }
-      io.emit('upload', buff, {
+      io.emit('sendMedia', buff, {
         type: type,
         text: message,
         number: rt.query.numb,
