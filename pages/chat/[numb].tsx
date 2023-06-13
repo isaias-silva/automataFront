@@ -50,7 +50,7 @@ export default function Number({ messages, io }: any) {
       io.emit('sendMedia', buff, {
         type: type,
         text: message,
-        number: rt.query.numb,
+        phone: rt.query.numb,
         mimetype: anexo.type,
 
       })
@@ -62,7 +62,7 @@ export default function Number({ messages, io }: any) {
       }
       io.emit('sendText', {
         type: 'text',
-        number: rt.query.numb,
+        phone: rt.query.numb,
         text: message
       })
       setMessage('')

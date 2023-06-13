@@ -7,7 +7,7 @@ import Popup from "./popup";
 export default function Menu({ io }: any) {
   const [active, setActive] = useState(false);
   const [popUp, setPopup] = useState("none");
-  const [user, setUser] = useState<{ name: string, class: string, email: string }>();
+  const [user, setUser] = useState<{ name: string, adm: boolean, email: string, profile: string }>();
 
   useEffect(() => {
     userinfo()
@@ -56,8 +56,8 @@ export default function Menu({ io }: any) {
           x
         </button>
         <h4>{user?.name || "nome"}</h4>
-        <h4>{user?.class || "classe"}</h4>
         <h4>{user?.email || "email"}</h4>
+        <h4>{user?.adm?'Admin':'user'}</h4>
         <h4></h4>
         <div className={style.barrComands}>
           <h4>comandos</h4>
