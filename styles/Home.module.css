@@ -1,8 +1,7 @@
 .content {
     width: 100%;
-    display: grid;
+    display: flex;
     height: 100%;
-    display: flex
 }
 
 .aside, .asideInvisible {
@@ -20,15 +19,11 @@
     overflow-y: scroll;
     box-shadow: 0 0 10px #000;
     transition: 0.3s linear;
-
 }
-
-
 
 .aside::-webkit-scrollbar, .asideInvisible::-webkit-scrollbar {
     display: none;
 }
-
 
 .mediaChat {
     width: 100%;
@@ -36,7 +31,6 @@
     flex-direction: column;
     align-items: center;
     justify-items: center;
-
 }
 
 .mediaChat .sticker {
@@ -54,28 +48,28 @@
 .mediaChat audio {
     border-radius: none;
 }
-.mediaChat iframe{
+
+.mediaChat iframe {
     width: 100%;
     border: none;
 }
 
-.msgyou,.msghe{
+.msgyou, .msghe {
     overflow: hidden;
 }
+
 .msgyou .mediaChat audio::-webkit-media-controls-panel {
     background: #6e0cc0;
-    border: 1px solid red
+    border: 1px solid red;
 }
 
 .msghe .mediaChat audio::-webkit-media-controls-panel {
     background: #fff;
     border-style: none;
-
 }
 
 .msgyou video, .msghe video {
     width: 100%;
-
 }
 
 .image {
@@ -96,13 +90,10 @@
 
 .section {
     text-align: center;
-
     background-color: rgba(6, 33, 64, 0.552);
     width: 100%;
     height: auto;
-
     min-height: 100vh;
-
 }
 
 .message {
@@ -124,7 +115,6 @@
     word-break: break-all;
     /* Instead use this non-standard one: */
     word-break: break-word;
-
 }
 
 .tinyMessage {
@@ -135,19 +125,15 @@
     width: 80px;
     margin: auto;
     margin-top: 10px;
-
 }
 
 .messageTiny .perfil img {
     transition: 0.4s linear;
-
 }
-
-
 
 .messageTiny:hover .perfil img {
     transform: scale(1.1);
-    filter: opacity(0.6)
+    filter: opacity(0.6);
 }
 
 .message:hover {
