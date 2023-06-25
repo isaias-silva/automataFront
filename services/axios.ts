@@ -5,7 +5,7 @@ const api = axios.create({
     headers: {
         Authorization: "Bearer "+token,
     },
-    baseURL:'http://localhost:8080'
+    baseURL:'https://api.zappchat.com.br'
 })
 
 export default api
